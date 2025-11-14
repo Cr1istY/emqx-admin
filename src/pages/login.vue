@@ -1,3 +1,6 @@
+<style scoped>
+
+</style>
 <template>
     <el-row class=" min-h-screen bg-light-blue-500">
         <el-col :lg="16" :md="12" class=" flex items-center justify-center">
@@ -19,12 +22,24 @@
                 <span>账号密码登录</span>
                 <span class="h-[1px] w-16 bg-gray-200"></span>
             </div>
-            <el-form :model="form" class="w-[250px]">
-                <el-form-item>
-                    <el-input class="my-1" v-model="form.username" type="username" placeholder="请输入密码"></el-input>
+            <el-form ref="formRef" :model="form" class="w-[250px]" :rules="rules">
+                <el-form-item prop="username">
+                    <el-input class="my-1" v-model="form.username" type="username" placeholder="请输入用户名">
+                        <template #prefix>
+                            <el-icon>
+                                <User/>
+                            </el-icon>
+                        </template>
+                    </el-input>
                 </el-form-item>
-                <el-form-item>
-                    <el-input class="mb-1" v-model="form.password" type="password" placeholder="请输入密码"></el-input>
+                <el-form-item prop="password">
+                    <el-input class="mb-1" v-model="form.password" type="password" placeholder="请输入密码" show-password>
+                        <template #prefix>
+                            <el-icon>
+                                <Lock/> 
+                            </el-icon>
+                        </template>
+                    </el-input>
                 </el-form-item>
                 <el-form-item>
                     <el-button class="w-full" type="primary" @click="handleLogin">登录</el-button>
@@ -36,27 +51,43 @@
 
 <script setup lang="ts">
 
-import { reactive } from 'vue'
-import { ElMessage } from 'element-plus';
+import { ref, reactive } from 'vue'
+import { ElMessage, ElForm } from 'element-plus'
+import { login } from '@/api/manager'
+
 const form = reactive({
     username: '',
     password: ''
 })
 
+const rules = {
+    username: [
+        {required: true, message: '请输入用户名', trigger: 'blur'}
+    ],
+    password: [
+        {required: true, message: '请输入密码', trigger: 'blur'},
+        {min: 4, message: '密码长度不能小于4个字符', trigger: 'blur'}
+    ]
+}
+
+const formRef = ref<InstanceType<typeof ElForm> | null>(null)
+
 const handleLogin = () => {
-    if (!form.username || !form.password) {
-        ElMessage.warning('请填写用户名和密码')
-        return
-    }
-    if (form.username === 'admin' && form.password === 'admin') {
-        ElMessage.success('登陆成功')
-        localStorage.setItem('token', 'admin')
-        localStorage.setItem('username', 'admin')
-        localStorage.setItem('password', 'admin')
-        localStorage.setItem('role', 'admin')
-        localStorage.setItem('avatar', 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534')
-    }
-    console.log(form)
+
+    formRef.value?.validate((vailed: boolean) => {
+        if (!vailed) {
+            ElMessage.error('请输入正确的用户名和密码')
+            return
+        }
+        // console.log(vailed)
+        login(form.username, form.password).then(res => {
+            console.log(res)
+        }).catch(err => {
+            console.log(err)
+            ElMessage.error("登陆失败：" + err.message)
+        })
+    })
+
 }
 
 </script>
