@@ -53,12 +53,19 @@
 
 import { ref, reactive } from 'vue'
 import { ElMessage, ElForm } from 'element-plus'
+import { useRouter } from 'vue-router'
 import { login } from '@/api/manager'
+import useCookies from 'universal-cookie'
+
+
 
 const form = reactive({
     username: '',
     password: ''
 })
+
+const cookie = new useCookies()
+const router = useRouter()
 
 const rules = {
     username: [
@@ -81,7 +88,15 @@ const handleLogin = () => {
         }
         // console.log(vailed)
         login(form.username, form.password).then(res => {
-            console.log(res)
+            // console.log(res.data.user.token)
+            // 提示成功
+            ElMessage.success('登陆成功, 5秒后自动跳转')
+            // 存储token
+            cookie.set('admin-token', res.data.user.token)
+            // 计时跳转
+            setTimeout(() => {
+                router.push('/emqx/dashboard')
+            }, 5000)
         }).catch(err => {
             console.log(err)
             ElMessage.error("登陆失败：" + err.message)
