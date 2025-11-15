@@ -8,6 +8,11 @@ function login(username: string, password: string): AxiosPromise<any> {
     })
 }
 
+function getUserInfo(): AxiosPromise<any> {
+    return axios.get('/admin/getinfo')
+}
+
 export {
-    login
+    login,
+    getUserInfo
 }

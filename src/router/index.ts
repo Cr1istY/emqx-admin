@@ -8,6 +8,7 @@ import Index from '@/pages/index.vue'
 import About from '@/pages/about.vue'
 import Login from '@/pages/login.vue'
 import NotFound from '@/pages/404.vue'
+import EmqxDashboard from '@/pages/emqxDashboard.vue'
 
 const routes: RouteRecordRaw[] = [{
     path: '/',
@@ -24,6 +25,10 @@ const routes: RouteRecordRaw[] = [{
 {
     path: '/login',
     component: Login
+},
+{
+    path: '/emqx/dashboard',
+    component: EmqxDashboard
 }
 ]
 

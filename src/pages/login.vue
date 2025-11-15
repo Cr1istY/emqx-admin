@@ -42,7 +42,7 @@
                     </el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-button class="w-full" type="primary" @click="handleLogin">登录</el-button>
+                    <el-button class="w-full" type="primary" @click="handleLogin" :loading="loading">登录</el-button>
                 </el-form-item>
             </el-form>
         </el-col>
@@ -54,8 +54,9 @@
 import { ref, reactive } from 'vue'
 import { ElMessage, ElForm } from 'element-plus'
 import { useRouter } from 'vue-router'
-import { login } from '@/api/manager'
+import { login, getUserInfo } from '@/api/manager'
 import useCookies from 'universal-cookie'
+
 
 
 
@@ -64,6 +65,7 @@ const form = reactive({
     password: ''
 })
 
+const loading = ref(false)
 const cookie = new useCookies()
 const router = useRouter()
 
@@ -80,29 +82,43 @@ const rules = {
 const formRef = ref<InstanceType<typeof ElForm> | null>(null)
 
 const handleLogin = () => {
-
     formRef.value?.validate((vailed: boolean) => {
         if (!vailed) {
             ElMessage.error('请输入正确的用户名和密码')
             return
         }
         // console.log(vailed)
-        login(form.username, form.password).then(res => {
+        loading.value = true
+        login(form.username, form.password)
+        .then(res => {
             // console.log(res.data.user.token)
             // 提示成功
             ElMessage.success('登陆成功, 5秒后自动跳转')
+
             // 存储token
             cookie.set('admin-token', res.data.user.token)
+            // 获取用户信息
+            getUserInfo().then(userRes => {
+                // console.log(res.data)
+                // 存储用户信息
+                cookie.set('username', userRes.data.user.username)
+                cookie.set('userId', userRes.data.user.id)
+                console.log(userRes.data.user.username)
+            })
             // 计时跳转
             setTimeout(() => {
                 router.push('/emqx/dashboard')
             }, 5000)
-        }).catch(err => {
-            console.log(err)
-            ElMessage.error("登陆失败：" + err.message)
+        })
+        .catch(err => {
+            ElMessage.error('登陆失败')
+        })
+        .finally(() => {
+            setTimeout(() => {
+                loading.value = false
+            }, 1000)
         })
     })
-
 }
 
 </script>
