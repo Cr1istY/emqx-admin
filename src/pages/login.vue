@@ -56,8 +56,7 @@ import { ElMessage, ElForm } from 'element-plus'
 import { useRouter } from 'vue-router'
 import { login, getUserInfo } from '@/api/manager'
 import useCookies from 'universal-cookie'
-
-
+import useUserStore from '@/store'
 
 
 const form = reactive({
@@ -65,6 +64,7 @@ const form = reactive({
     password: ''
 })
 
+const store = useUserStore()
 const loading = ref(false)
 const cookie = new useCookies()
 const router = useRouter()
@@ -103,6 +103,7 @@ const handleLogin = () => {
                 // 存储用户信息
                 cookie.set('username', userRes.data.user.username)
                 cookie.set('userId', userRes.data.user.id)
+                store.SET_USERINFO(userRes.data.user)
                 console.log(userRes.data.user.username)
             })
             // 计时跳转
@@ -110,7 +111,7 @@ const handleLogin = () => {
                 router.push('/emqx/dashboard')
             }, 5000)
         })
-        .catch(err => {
+        .catch(() => {
             ElMessage.error('登陆失败')
         })
         .finally(() => {
