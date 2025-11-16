@@ -5,6 +5,7 @@ import 'element-plus/dist/index.css'
 import 'virtual:windi.css'
 import App from './App.vue'
 import router from './router'
+import "@/permisson"
 import { createPinia } from 'pinia'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 

@@ -12,23 +12,38 @@ import EmqxDashboard from '@/pages/emqxDashboard.vue'
 
 const routes: RouteRecordRaw[] = [{
     path: '/',
-    component: Index
+    component: Index,
+    meta: {
+        title: '首页'
+    }
 },
 {
     path: '/about',
-    component: About
+    component: About,
+    meta: {
+        title: '关于'
+    }
 },
 {
     path: '/:pathMatch(.*)*',
-    component: NotFound
+    component: NotFound,
+    meta: {
+        title: '404'
+    }
 },
 {
     path: '/login',
-    component: Login
+    component: Login,
+    meta: {
+        title: '登录'
+    }
 },
 {
     path: '/emqx/dashboard',
-    component: EmqxDashboard
+    component: EmqxDashboard,
+    meta: {
+        title: 'EMQX控制台'
+    }
 }
 ]
 
