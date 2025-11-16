@@ -9,17 +9,17 @@
                     欢迎👏
                 </div>
                 <div class="text-gray-200 text-sm">
-                    传感器信息管理（重庆邮电大学节点设计）
+                    管理员注册
                 </div>
             </div>
         </el-col>
         <el-col :lg="8" :md="12" class="bg-light-50 flex items-center justify-center flex-col">
             <h2 class="font-bold text-3xl text-gray-800">
-                请登陆
+                请注册
             </h2> 
             <div class="flex items-center justify-center my-5 text-gray-300 space-x-2">
                 <span class="h-[1px] w-16 bg-gray-200"></span>
-                <span>账号密码登录</span>
+                <span>账号密码</span>
                 <span class="h-[1px] w-16 bg-gray-200"></span>
             </div>
             <el-form ref="formRef" :model="form" class="w-[250px]" :rules="rules">
@@ -41,6 +41,15 @@
                         </template>
                     </el-input>
                 </el-form-item>
+                <el-form-item prop="password_confirm">
+                    <el-input class="mb-1" v-model="form.password_confirm" type="password" placeholder="请输入确认密码" show-password>
+                        <template #prefix>
+                            <el-icon>
+                                <Lock/> 
+                            </el-icon>
+                        </template>
+                    </el-input>
+                </el-form-item>
                 <el-form-item>
                     <el-button class="w-full" type="primary" @click="handleLogin" :loading="loading">登录</el-button>
                 </el-form-item>
@@ -54,19 +63,17 @@
 import { ref, reactive } from 'vue'
 import { ElMessage, ElForm } from 'element-plus'
 import { useRouter } from 'vue-router'
-import { login, getUserInfo } from '@/api/manager'
-import useCookies from 'universal-cookie'
-import useUserStore from '@/store'
-
+import { register } from '@/api/manager'
+import Cookie from 'universal-cookie'
 
 const form = reactive({
     username: '',
-    password: ''
+    password: '',
+    password_confirm: ''
 })
 
-const store = useUserStore()
+const cookie = new Cookie()
 const loading = ref(false)
-const cookie = new useCookies()
 const router = useRouter()
 
 const rules = {
@@ -87,32 +94,25 @@ const handleLogin = () => {
             ElMessage.error('请输入正确的用户名和密码')
             return
         }
+        if (form.password !== form.password_confirm) {
+            ElMessage.error('密码不一致')
+            return
+        }
         // console.log(vailed)
         loading.value = true
-        login(form.username, form.password)
+        register(form.username, form.password)
         .then(res => {
             // console.log(res.data.user.token)
             // 提示成功
-            ElMessage.success('登陆成功, 1秒后自动跳转')
-
-            // 存储token
-            cookie.set('admin-token', res.data.user.token)
-            // 获取用户信息
-            getUserInfo().then(userRes => {
-                // console.log(res.data)
-                // 存储用户信息
-                cookie.set('username', userRes.data.user.username)
-                cookie.set('userId', userRes.data.user.id)
-                store.SET_USERINFO(userRes.data.user)
-                console.log(userRes.data.user.username)
-            })
+            cookie.remove('admin-token')
+            ElMessage.success('注册成功, 1秒后自动跳转' + res.data.user.created_time)
             // 计时跳转
             setTimeout(() => {
-                router.push('/emqx/dashboard')
+                router.push('/login')
             }, 1000)
         })
         .catch(() => {
-            ElMessage.error('登陆失败')
+            ElMessage.error('注册失败')
         })
         .finally(() => {
             setTimeout(() => {

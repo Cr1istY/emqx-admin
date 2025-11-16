@@ -9,6 +9,7 @@ import About from '@/pages/about.vue'
 import Login from '@/pages/login.vue'
 import NotFound from '@/pages/404.vue'
 import EmqxDashboard from '@/pages/emqxDashboard.vue'
+import register from '@/pages/register.vue'
 
 const routes: RouteRecordRaw[] = [{
     path: '/',
@@ -37,6 +38,14 @@ const routes: RouteRecordRaw[] = [{
     meta: {
         title: '登录'
     }
+},
+{
+    path: '/register',
+    component: register,
+    meta: {
+        title: '注册'
+    }
+
 },
 {
     path: '/emqx/dashboard',
