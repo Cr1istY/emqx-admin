@@ -8,13 +8,13 @@
 </template>
 
 <script setup lang="ts">
-import useUserStore from '@/store/index'
-import { computed } from 'vue'
+// import useUserStore from '@/store/index'
+// import { computed } from 'vue'
 
-const store = useUserStore()
+// const store = useUserStore()
 
-const userInfo = computed(() => {
-    return store.getUserInfo
-})
+// const userInfo = computed(() => {
+//     return store.getUserInfo
+// })
 
 </script>

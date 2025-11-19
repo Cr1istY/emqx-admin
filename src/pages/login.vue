@@ -104,11 +104,10 @@ const handleLogin = () => {
                 cookie.set('username', userRes.data.user.username)
                 cookie.set('userId', userRes.data.user.id)
                 store.SET_USERINFO(userRes.data.user)
-                console.log(userRes.data.user.username)
             })
             // 计时跳转
             setTimeout(() => {
-                router.push('/emqx/dashboard')
+                router.push('/dashboard')
             }, 1000)
         })
         .catch(() => {
