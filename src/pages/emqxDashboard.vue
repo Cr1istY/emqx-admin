@@ -102,13 +102,13 @@
               <el-icon><location /></el-icon>
               <span v-show="!isCollapse">用户管理</span>
             </template>
-            <el-menu-item index="/dashboard/page4">
-              <el-icon><document /></el-icon>
+            <el-menu-item index="/register">
+              <el-icon><user /></el-icon>
               <span v-show="!isCollapse">创建用户</span>
             </el-menu-item>
             <el-menu-item index="/dashboard/page4">
-              <el-icon><document /></el-icon>
-              <span v-show="!isCollapse">禁用用户</span>
+              <el-icon><user /></el-icon>
+              <span v-show="!isCollapse">管理用户</span>
             </el-menu-item>
           </el-sub-menu>
         </el-menu>

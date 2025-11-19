@@ -107,7 +107,7 @@ const handleLogin = () => {
             })
             // 计时跳转
             setTimeout(() => {
-                router.push('/emqx/dashboard')
+                router.push('/dashboard')
             }, 1000)
         })
         .catch(() => {

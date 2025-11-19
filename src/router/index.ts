@@ -12,6 +12,7 @@ import EmqxDashboard from '@/pages/emqxDashboard.vue'
 import register from '@/pages/register.vue'
 import DashBoardPage_1 from '@/pages/dashboard/dashboardpage_1.vue'
 import DashBoardPage_2 from '@/pages/dashboard/dashboardpage_2.vue'
+import ChangeUserStatus from '@/pages/dashboard/changeUserStatus.vue'
 
 const routes: RouteRecordRaw[] = [{
     path: '/',
@@ -57,14 +58,21 @@ const routes: RouteRecordRaw[] = [{
             path: 'page1',
             component: DashBoardPage_1,
             meta: {
-                title: 'Dashboard'
+                title: '温度视图'
             }
         },
         {
             path: 'page2',
             component: DashBoardPage_2,
             meta: {
-                title: 'Dashboard'
+                title: '湿度视图'
+            }
+        },
+        {
+            path: 'page4',
+            component: ChangeUserStatus,
+            meta: {
+                title: '用户管理'
             }
         }
     ]
