@@ -10,6 +10,8 @@ import Login from '@/pages/login.vue'
 import NotFound from '@/pages/404.vue'
 import EmqxDashboard from '@/pages/emqxDashboard.vue'
 import register from '@/pages/register.vue'
+import DashBoardPage_1 from '@/pages/dashboard/dashboardpage_1.vue'
+import DashBoardPage_2 from '@/pages/dashboard/dashboardpage_2.vue'
 
 const routes: RouteRecordRaw[] = [{
     path: '/',
@@ -48,11 +50,24 @@ const routes: RouteRecordRaw[] = [{
 
 },
 {
-    path: '/emqx/dashboard',
+    path: '/dashboard',
     component: EmqxDashboard,
-    meta: {
-        title: 'EMQX控制台'
-    }
+    children: [
+        {
+            path: 'page1',
+            component: DashBoardPage_1,
+            meta: {
+                title: 'Dashboard'
+            }
+        },
+        {
+            path: 'page2',
+            component: DashBoardPage_2,
+            meta: {
+                title: 'Dashboard'
+            }
+        }
+    ]
 }
 ]
 
