@@ -73,19 +73,10 @@
               <el-icon><message /></el-icon>
               <span v-show="!isCollapse">节点管理</span>
             </template>
-            <el-menu-item-group>
-              <template #title>
-                <span v-show="!isCollapse">节点数据</span>
-              </template>
-              <el-menu-item index="/dashboard/page1">
-                <el-icon><document /></el-icon>
-                <span v-show="!isCollapse">温度</span>
-              </el-menu-item>
-              <el-menu-item index="/dashboard/page2">
-                <el-icon><setting /></el-icon>
-                <span v-show="!isCollapse">湿度</span>
-              </el-menu-item>
-            </el-menu-item-group>
+            <el-menu-item index="/dashboard/temperature">
+              <el-icon><message /></el-icon>
+              <span v-show="!isCollapse">温度</span>
+            </el-menu-item>
             <el-menu-item-group>
               <template #title>
                 <span v-show="!isCollapse">节点注册</span>
@@ -158,9 +149,7 @@ import useCookies from 'universal-cookie'
 import { useRouter } from 'vue-router'
 
 import {
-  Document,
   Location,
-  Setting,
   User,
   Message,
   ArrowDown
