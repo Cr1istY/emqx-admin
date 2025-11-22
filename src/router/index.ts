@@ -10,9 +10,8 @@ import Login from '@/pages/login.vue'
 import NotFound from '@/pages/404.vue'
 import EmqxDashboard from '@/pages/emqxDashboard.vue'
 import register from '@/pages/register.vue'
-import DashBoardPage_1 from '@/pages/dashboard/dashboardpage_1.vue'
-import DashBoardPage_2 from '@/pages/dashboard/dashboardpage_2.vue'
 import ChangeUserStatus from '@/pages/dashboard/changeUserStatus.vue'
+import DashboardTemperature from '@/pages/dashboard/dashboardTemperature.vue'
 
 const routes: RouteRecordRaw[] = [{
     path: '/',
@@ -55,17 +54,10 @@ const routes: RouteRecordRaw[] = [{
     component: EmqxDashboard,
     children: [
         {
-            path: 'page1',
-            component: DashBoardPage_1,
+            path: 'temperature',
+            component: DashboardTemperature,
             meta: {
                 title: '温度视图'
-            }
-        },
-        {
-            path: 'page2',
-            component: DashBoardPage_2,
-            meta: {
-                title: '湿度视图'
             }
         },
         {

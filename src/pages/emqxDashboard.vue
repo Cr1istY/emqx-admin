@@ -73,19 +73,10 @@
               <el-icon><message /></el-icon>
               <span v-show="!isCollapse">节点管理</span>
             </template>
-            <el-menu-item-group>
-              <template #title>
-                <span v-show="!isCollapse">节点数据</span>
-              </template>
-              <el-menu-item index="/dashboard/page1">
-                <el-icon><document /></el-icon>
-                <span v-show="!isCollapse">温度</span>
-              </el-menu-item>
-              <el-menu-item index="/dashboard/page2">
-                <el-icon><setting /></el-icon>
-                <span v-show="!isCollapse">湿度</span>
-              </el-menu-item>
-            </el-menu-item-group>
+            <el-menu-item index="/dashboard/temperature">
+              <el-icon><message /></el-icon>
+              <span v-show="!isCollapse">温度</span>
+            </el-menu-item>
             <el-menu-item-group>
               <template #title>
                 <span v-show="!isCollapse">节点注册</span>
@@ -133,7 +124,9 @@
             <template #dropdown>
               <el-dropdown-menu>
                 <el-dropdown-item>个人信息</el-dropdown-item>
-                <el-dropdown-item>退出登录</el-dropdown-item>
+                <el-dropdown-item>
+                  <el-button @click="logout">退出登录</el-button>
+                </el-dropdown-item>
               </el-dropdown-menu>
             </template>
           </el-dropdown>
@@ -153,12 +146,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import useCookies from 'universal-cookie'
-
+import { useRouter } from 'vue-router'
 
 import {
-  Document,
   Location,
-  Setting,
   User,
   Message,
   ArrowDown
@@ -168,8 +159,14 @@ import {
 const isCollapse = ref(false)
 const cookies = new useCookies()
 const username = cookies.get('username')
+const router = useRouter()
 
-
+function logout() {
+  cookies.remove('username')
+  cookies.remove('userId')
+  cookies.remove('admin-token')
+  router.push('/login')
+}
 
 // 切换导航栏折叠状态
 const toggleCollapse = () => {
