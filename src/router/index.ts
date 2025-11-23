@@ -12,6 +12,8 @@ import EmqxDashboard from '@/pages/emqxDashboard.vue'
 import register from '@/pages/register.vue'
 import ChangeUserStatus from '@/pages/dashboard/changeUserStatus.vue'
 import DashboardTemperature from '@/pages/dashboard/dashboardTemperature.vue'
+import DashboardMoisture from '@/pages/dashboard/dashboardMoisture.vue'
+
 
 const routes: RouteRecordRaw[] = [{
     path: '/',
@@ -61,7 +63,14 @@ const routes: RouteRecordRaw[] = [{
             }
         },
         {
-            path: 'page4',
+            path: 'moisture',
+            component: DashboardMoisture,
+            meta: {
+                title: '湿度视图'
+            }
+        },
+        {
+            path: 'userStatus',
             component: ChangeUserStatus,
             meta: {
                 title: '用户管理'

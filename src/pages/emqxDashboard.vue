@@ -77,6 +77,10 @@
               <el-icon><message /></el-icon>
               <span v-show="!isCollapse">温度</span>
             </el-menu-item>
+            <el-menu-item index="/dashboard/moisture">
+              <el-icon><message /></el-icon>
+              <span v-show="!isCollapse">温度</span>
+            </el-menu-item>
             <el-menu-item-group>
               <template #title>
                 <span v-show="!isCollapse">节点注册</span>
@@ -97,7 +101,7 @@
               <el-icon><user /></el-icon>
               <span v-show="!isCollapse">创建用户</span>
             </el-menu-item>
-            <el-menu-item index="/dashboard/page4">
+            <el-menu-item index="/dashboard/userStatus">
               <el-icon><user /></el-icon>
               <span v-show="!isCollapse">管理用户</span>
             </el-menu-item>
