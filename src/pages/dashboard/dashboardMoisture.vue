@@ -31,7 +31,7 @@ export default defineComponent({
   setup() {
     onMounted(async () => {
         try {
-            const res = await axios.get('/empx/getMessage/4')
+            const res = await axios.get('/empx/getMessage/7')
             const data = res.data
             console.log(data)
             console.log(data[1].nodeID)
