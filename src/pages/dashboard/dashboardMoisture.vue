@@ -5,13 +5,15 @@
     </body>
 </template>
 
-<script lang="ts"> 
+<script lang="ts">
 import { defineComponent, onMounted } from 'vue';
 import VChart from '@visactor/vchart';
 import axios from '@/axios'
 
 const formatDateTime = (timestamp: string) => {
+    console.log(timestamp)
     const data = new Date(timestamp)
+    console.log(data)
     const year = data.getFullYear()
     const month = (data.getMonth() + 1).toString().padStart(2, '0')
     const day = data.getDate().toString().padStart(2, '0')
@@ -37,7 +39,7 @@ export default defineComponent({
             console.log(data[1].nodeID)
             const charData = data.map((item: NodeData) => ({
                 id: item.nodeID,
-                time: formatDateTime(item.ts),
+                time: formatDateTime(item.ts.slice(0, -1) + "+08:00"),
                 value: item.value
             }))
             console.log(charData)

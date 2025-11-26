@@ -62,7 +62,7 @@
     <el-aside :width="isCollapse ? '64px' : '200px'" class="sidebar">
       <div class="logo" v-if="!isCollapse">管理系统</div>
       <el-scrollbar>
-        <el-menu 
+        <el-menu
           :default-openeds="['1']"
           :collapse="isCollapse"
           :collapse-transition="false"
@@ -79,7 +79,7 @@
             </el-menu-item>
             <el-menu-item index="/dashboard/moisture">
               <el-icon><message /></el-icon>
-              <span v-show="!isCollapse">温度</span>
+              <span v-show="!isCollapse">湿度</span>
             </el-menu-item>
             <el-menu-item-group>
               <template #title>
@@ -91,7 +91,7 @@
               </el-menu-item>
             </el-menu-item-group>
           </el-sub-menu>
-          
+
           <el-sub-menu index="2">
             <template #title>
               <el-icon><location /></el-icon>
