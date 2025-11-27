@@ -70,23 +70,31 @@
         >
           <el-sub-menu index="1">
             <template #title>
-              <el-icon><message /></el-icon>
+              <el-icon><Odometer /></el-icon>
               <span v-show="!isCollapse">节点管理</span>
             </template>
             <el-menu-item index="/dashboard/temperature">
-              <el-icon><message /></el-icon>
+              <el-icon><Histogram /></el-icon>
               <span v-show="!isCollapse">温度</span>
             </el-menu-item>
             <el-menu-item index="/dashboard/moisture">
-              <el-icon><message /></el-icon>
+              <el-icon><TrendCharts /></el-icon>
               <span v-show="!isCollapse">湿度</span>
+            </el-menu-item>
+            <el-menu-item index="/dashboard/ppm">
+              <el-icon><PictureRounded /></el-icon>
+              <span v-show="!isCollapse">PPM</span>
+            </el-menu-item>
+            <el-menu-item index="/dashboard/cron">
+              <el-icon><Setting /></el-icon>
+              <span v-show="!isCollapse">任务</span>
             </el-menu-item>
             <el-menu-item-group>
               <template #title>
                 <span v-show="!isCollapse">节点注册</span>
               </template>
               <el-menu-item index="/dashboard/page3">
-                <el-icon><user /></el-icon>
+                <el-icon><SetUp /></el-icon>
                 <span v-show="!isCollapse">注册节点</span>
               </el-menu-item>
             </el-menu-item-group>
@@ -94,15 +102,15 @@
 
           <el-sub-menu index="2">
             <template #title>
-              <el-icon><location /></el-icon>
+              <el-icon><Headset /></el-icon>
               <span v-show="!isCollapse">用户管理</span>
             </template>
             <el-menu-item index="/register">
-              <el-icon><user /></el-icon>
+              <el-icon><Refrigerator /></el-icon>
               <span v-show="!isCollapse">创建用户</span>
             </el-menu-item>
             <el-menu-item index="/dashboard/userStatus">
-              <el-icon><user /></el-icon>
+              <el-icon><Menu /></el-icon>
               <span v-show="!isCollapse">管理用户</span>
             </el-menu-item>
           </el-sub-menu>
@@ -115,7 +123,9 @@
       <!-- 头部 -->
       <el-header class="header">
         <div class="toggle-button" @click="toggleCollapse">
-          <el-icon>{{ isCollapse ? 'Open' : 'Close' }}</el-icon>
+          <el-icon>
+            <component :is="iconComponent" />
+          </el-icon>
         </div>
         <div class="header-right">
           <el-dropdown>
@@ -148,9 +158,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import useCookies from 'universal-cookie'
 import { useRouter } from 'vue-router'
+import { Expand, Fold } from '@element-plus/icons-vue'
 
 import {
   Location,
@@ -176,5 +187,10 @@ function logout() {
 const toggleCollapse = () => {
   isCollapse.value = !isCollapse.value
 }
+
+const iconComponent = computed(() => {
+  return isCollapse.value ? Expand : Fold
+})
+
 </script>
 

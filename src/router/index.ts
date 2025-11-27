@@ -13,7 +13,8 @@ import register from '@/pages/register.vue'
 import ChangeUserStatus from '@/pages/dashboard/changeUserStatus.vue'
 import DashboardTemperature from '@/pages/dashboard/dashboardTemperature.vue'
 import DashboardMoisture from '@/pages/dashboard/dashboardMoisture.vue'
-
+import DashboardPPM from '@/pages/dashboard/dashboardPPM.vue'
+import DashboardCron from '@/pages/dashboard/dashboardCron.vue'
 
 const routes: RouteRecordRaw[] = [{
     path: '/',
@@ -67,6 +68,20 @@ const routes: RouteRecordRaw[] = [{
             component: DashboardMoisture,
             meta: {
                 title: '湿度视图'
+            }
+        },
+        {
+            path: 'ppm',
+            component: DashboardPPM,
+            meta: {
+                title: 'PPM'
+            }
+        },
+        {
+            path: "cron",
+            component: DashboardCron,
+            meta: {
+                title: "Cron"
             }
         },
         {
