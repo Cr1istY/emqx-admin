@@ -19,10 +19,6 @@
   background-color: #2b2f3a;
 }
 
-.el-menu {
-  border-right: none;
-}
-
 .header {
   display: flex;
   justify-content: space-between;
@@ -137,7 +133,6 @@
             </span>
             <template #dropdown>
               <el-dropdown-menu>
-                <el-dropdown-item>个人信息</el-dropdown-item>
                 <el-dropdown-item>
                   <el-button @click="logout">退出登录</el-button>
                 </el-dropdown-item>
@@ -164,9 +159,6 @@ import { useRouter } from 'vue-router'
 import { Expand, Fold } from '@element-plus/icons-vue'
 
 import {
-  Location,
-  User,
-  Message,
   ArrowDown
 } from '@element-plus/icons-vue'
 

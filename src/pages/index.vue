@@ -10,8 +10,8 @@
             <el-icon class="logo-icon"><Connection /></el-icon>
             <h1 class="title">IoT Node Management</h1>
         </div>
-        <el-button 
-          type="primary" 
+        <el-button
+          type="primary"
           class="login-btn"
           @click="goToLogin"
         >
@@ -24,8 +24,8 @@
     <!-- 面包屑导航 -->
     <div class="breadcrumb-container">
       <el-breadcrumb separator="/">
-        <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
         <el-breadcrumb-item :to="{ path: '/dashboard'}">管理平台</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
 
@@ -91,9 +91,9 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
 import { ElMessage } from 'element-plus';
-import { 
-  Connection, 
-  User, 
+import {
+  Connection,
+  User,
   Odometer,
   Upload,
   Operation
@@ -118,7 +118,7 @@ const goToLogin = () => {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  
+
   .nav-content {
     max-width: 1200px;
     margin: 0 auto;
@@ -127,17 +127,17 @@ const goToLogin = () => {
     align-items: center;
     padding: 16px 24px;
   }
-  
+
   .logo-section {
     display: flex;
     align-items: center;
     gap: 12px;
-    
+
     .logo-icon {
       font-size: 28px;
       color: #409eff;
     }
-    
+
     .title {
       font-size: 20px;
       font-weight: 600;
@@ -145,10 +145,10 @@ const goToLogin = () => {
       color: #303133;
     }
   }
-  
+
   .login-btn {
     font-weight: 500;
-    
+
     .btn-icon {
       margin-right: 6px;
     }
@@ -161,17 +161,17 @@ const goToLogin = () => {
   margin: 0 auto;
   padding: 16px 24px;
   background: rgba(255, 255, 255, 0.08);
-  
+
   :deep(.el-breadcrumb) {
     .el-breadcrumb__item {
       .el-breadcrumb__inner {
         color: rgba(255, 255, 255, 0.8);
-        
+
         &:hover {
           color: #fff;
         }
       }
-      
+
       &:last-child .el-breadcrumb__inner {
         color: #fff;
         font-weight: normal;
@@ -184,7 +184,7 @@ const goToLogin = () => {
 .main-content {
   padding: 40px 24px;
   min-height: 600px;
-  
+
   .content-wrapper {
     max-width: 1200px;
     margin: 0 auto;
@@ -199,7 +199,7 @@ const goToLogin = () => {
   padding: 40px 32px;
   text-align: center;
   border-radius: 12px;
-  
+
   .hero-title {
     font-size: 32px;
     font-weight: 700;
@@ -209,19 +209,19 @@ const goToLogin = () => {
     background-clip: text;         /* 再写标准版本 */
     -webkit-text-fill-color: transparent;
   }
-  
+
   .hero-subtitle {
     font-size: 18px;
     color: #606266;
     margin: 0 0 24px 0;
   }
-  
+
   .tech-stack-tags {
     display: flex;
     justify-content: center;
     gap: 12px;
     flex-wrap: wrap;
-    
+
     .el-tag {
       font-weight: 500;
       border-radius: 20px;
@@ -233,7 +233,7 @@ const goToLogin = () => {
 // 功能特性网格
 .features-grid {
   margin-bottom: 60px;
-  
+
   .feature-card {
     border: none;
     background: rgba(255, 255, 255, 0.95);
@@ -242,11 +242,11 @@ const goToLogin = () => {
     border-radius: 12px;
     height: 100%;
     transition: transform 0.3s ease;
-    
+
     &:hover {
       transform: translateY(-4px);
     }
-    
+
     .feature-icon {
       display: inline-flex;
       align-items: center;
@@ -256,19 +256,19 @@ const goToLogin = () => {
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       border-radius: 50%;
       margin-bottom: 20px;
-      
+
       .icon {
         font-size: 28px;
         color: #fff;
       }
     }
-    
+
     h3 {
       font-size: 20px;
       color: #303133;
       margin: 0 0 12px 0;
     }
-    
+
     p {
       color: #606266;
       margin: 0;

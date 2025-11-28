@@ -1,12 +1,12 @@
 <template>
   <div class="p-6 max-w-6xl mx-auto">
     <h2 class="text-2xl font-bold mb-6">任务管理</h2>
-    
+
     <!-- 任务列表 -->
-    <el-table 
-      :data="tasks" 
-      v-loading="loading" 
-      border 
+    <el-table
+      :data="tasks"
+      v-loading="loading"
+      border
       highlight-current-row
       @current-change="handleTaskSelect"
       class="mb-6"
@@ -21,8 +21,8 @@
       <el-table-column prop="description" label="描述" min-width="200" show-overflow-tooltip />
       <el-table-column prop="status" label="状态" width="100">
         <template #default="{ row }">
-          <el-tag :type="row.status === 1 ? 'success' : 'info'">
-            {{ row.status === 1 ? '启用' : '禁用' }}
+          <el-tag :type="row.status === true ? 'success' : 'info'">
+            {{ row.status === true ? '启用' : '禁用' }}
           </el-tag>
         </template>
       </el-table-column>
@@ -61,8 +61,8 @@
 
         <!-- Cron 表达式输入 -->
         <el-form-item label="Cron表达式" required>
-          <el-input 
-            v-model="editForm.cron_expr" 
+          <el-input
+            v-model="editForm.cron_expr"
             :placeholder="cronType === 'every' ? '例如: @every 5m' : '例如: 0 */5 * * * ?'"
             style="width: 300px;"
           />
@@ -88,8 +88,8 @@
         <el-form-item label="任务状态">
           <el-switch
             v-model="editForm.status"
-            :active-value="1"
-            :inactive-value="0"
+            :active-value="true"
+            :inactive-value="false"
             active-text="启用"
             inactive-text="禁用"
           />
@@ -99,14 +99,14 @@
         <el-descriptions :column="2" border class="mt-4">
           <el-descriptions-item label="原Cron">{{ selectedTask.cron_expr }}</el-descriptions-item>
           <el-descriptions-item label="原状态">
-            <el-tag :type="selectedTask.status === 1 ? 'success' : 'info'">
-              {{ selectedTask.status === 1 ? '启用' : '禁用' }}
+            <el-tag :type="selectedTask.status === true ? 'success' : 'info'">
+              {{ selectedTask.status === true ? '启用' : '禁用' }}
             </el-tag>
           </el-descriptions-item>
           <el-descriptions-item label="新Cron">{{ editForm.cron_expr || '-' }}</el-descriptions-item>
           <el-descriptions-item label="新状态">
-            <el-tag :type="editForm.status === 1 ? 'success' : 'info'">
-              {{ editForm.status === 1 ? '启用' : '禁用' }}
+            <el-tag :type="editForm.status === true ? 'success' : 'info'">
+              {{ editForm.status === true ? '启用' : '禁用' }}
             </el-tag>
           </el-descriptions-item>
         </el-descriptions>
@@ -129,7 +129,7 @@
 <script setup lang="ts">
 import { ref, reactive, onMounted, watch } from 'vue';
 import axios from '@/axios';
-import { ElMessage, ElMessageBox } from 'element-plus';
+import { ElMessage } from 'element-plus';
 import { InfoFilled, Check, Close } from '@element-plus/icons-vue';
 
 // 类型定义
@@ -138,7 +138,7 @@ interface Task {
   task_name: string;
   cron_expr: string;
   description: string;
-  status: number;
+  status: boolean;
   params: Record<string, any>;
   created_at: string;
   updated_at: string;
@@ -154,7 +154,7 @@ const cronType = ref<'standard' | 'every'>('standard');
 // 编辑表单
 const editForm = reactive({
   cron_expr: '',
-  status: 1,
+  status: true,
 });
 
 // 监听选中任务变化
@@ -188,7 +188,7 @@ const handleTaskSelect = (row: Task | null) => {
 const handleCancel = () => {
   selectedTask.value = null;
   editForm.cron_expr = '';
-  editForm.status = 1;
+  editForm.status = true;
 };
 
 // 保存修改
@@ -223,14 +223,14 @@ const handleSave = async () => {
     // 2. 更新状态（如果已修改）
     if (editForm.status !== selectedTask.value.status) {
       await axios.put(`/task/${selectedTask.value.task_name}/status`, {
-        status: editForm.status === 1,
+        status: editForm.status === true,
       });
       ElMessage.success('状态更新成功');
     }
 
     // 3. 刷新列表
     await fetchTasks();
-    
+
     // 4. 重新选中当前任务
     const updatedTask = tasks.value.find(t => t.id === selectedTask.value?.id);
     if (updatedTask) {

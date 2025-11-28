@@ -16,7 +16,7 @@
         <el-col :lg="8" :md="12" class="bg-light-50 flex items-center justify-center flex-col">
             <h2 class="font-bold text-3xl text-gray-800">
                 请登陆
-            </h2> 
+            </h2>
             <div class="flex items-center justify-center my-5 text-gray-300 space-x-2">
                 <span class="h-[1px] w-16 bg-gray-200"></span>
                 <span>账号密码登录</span>
@@ -36,7 +36,7 @@
                     <el-input class="mb-1" v-model="form.password" type="password" placeholder="请输入密码" show-password>
                         <template #prefix>
                             <el-icon>
-                                <Lock/> 
+                                <Lock/>
                             </el-icon>
                         </template>
                     </el-input>
@@ -107,7 +107,7 @@ const handleLogin = () => {
             })
             // 计时跳转
             setTimeout(() => {
-                router.push('/dashboard')
+                router.push('/')
             }, 1000)
         })
         .catch(() => {

@@ -2,17 +2,17 @@
   <div class="flex flex-col items-center p-4">
     <!-- 日期选择器 -->
     <div class="flex justify-center mb-4">
-      <el-date-picker 
-        v-model="startTime" 
-        type="datetime" 
+      <el-date-picker
+        v-model="startTime"
+        type="datetime"
         placeholder="开始时间"
         value-format="YYYY-MM-DD HH:mm:ss"
         class="w-48"
       />
       <div class="mx-4"></div>
-      <el-date-picker 
-        v-model="endTime" 
-        type="datetime" 
+      <el-date-picker
+        v-model="endTime"
+        type="datetime"
         placeholder="结束时间"
         value-format="YYYY-MM-DD HH:mm:ss"
         class="w-48"
@@ -21,7 +21,7 @@
         查询
       </el-button>
     </div>
-    
+
     <!-- 图表容器 -->
     <div id="chart" class="w-full md:w-4/5 lg:w-3/4 xl:w-2/3 h-[50vh] min-h-[300px]"></div>
   </div>
@@ -79,7 +79,7 @@ export default defineComponent({
       if (vchart) {
         vchart.release();
       }
-      
+
       const spec = {
         type: 'line',
         data: {
@@ -107,10 +107,10 @@ export default defineComponent({
           params.endTime = endTime.value;
         }
 
-        const res = await axios.get('/empx/getMessage/7', { params });
+        const res = await axios.get('/empx/getMessage/4', { params });
         const processedData = processData(res.data);
         chartData.value = processedData;
-        
+
         initChart(processedData);
       } catch (error) {
         console.error('数据加载失败:', error);
