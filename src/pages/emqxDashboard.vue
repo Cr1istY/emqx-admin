@@ -85,7 +85,11 @@
               <el-icon><Setting /></el-icon>
               <span v-show="!isCollapse">任务</span>
             </el-menu-item>
-            <el-menu-item-group>
+              <el-menu-item index="/dashboard/door">
+              <el-icon><Unlock /></el-icon>
+              <span v-show="!isCollapse">远程开关</span>
+            </el-menu-item>
+            <!-- <el-menu-item-group>
               <template #title>
                 <span v-show="!isCollapse">节点注册</span>
               </template>
@@ -93,7 +97,7 @@
                 <el-icon><SetUp /></el-icon>
                 <span v-show="!isCollapse">注册节点</span>
               </el-menu-item>
-            </el-menu-item-group>
+            </el-menu-item-group> -->
           </el-sub-menu>
 
           <el-sub-menu index="2">
