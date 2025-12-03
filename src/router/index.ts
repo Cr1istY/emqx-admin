@@ -15,6 +15,7 @@ import DashboardTemperature from '@/pages/dashboard/dashboardTemperature.vue'
 import DashboardMoisture from '@/pages/dashboard/dashboardMoisture.vue'
 import DashboardPPM from '@/pages/dashboard/dashboardPPM.vue'
 import DashboardCron from '@/pages/dashboard/dashboardCron.vue'
+import DashboardDoor from '@/pages/dashboard/dashboardDoor.vue'
 
 const routes: RouteRecordRaw[] = [{
     path: '/',
@@ -82,6 +83,13 @@ const routes: RouteRecordRaw[] = [{
             component: DashboardCron,
             meta: {
                 title: "Cron"
+            }
+        },
+        {
+            path: "door",
+            component: DashboardDoor,
+            meta: {
+                title: "门禁"
             }
         },
         {
