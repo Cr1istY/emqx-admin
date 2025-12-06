@@ -2,9 +2,8 @@ import axios, { type InternalAxiosRequestConfig } from "axios";
 import { ElMessage } from "element-plus";
 import useCookies from "universal-cookie";
 
-
 const service = axios.create({
-    baseURL: "/api",
+    baseURL: import.meta.env.VITE_API_BASE_URL || '/api',
     timeout: 5000,
     headers: {
         "Content-Type": "application/json",
@@ -28,5 +27,6 @@ service.interceptors.response.use(function (response) {
     ElMessage.error(error.message)
     return Promise.reject(error)
 })
+
 
 export default service;

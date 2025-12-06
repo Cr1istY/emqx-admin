@@ -12,16 +12,16 @@
       <div class="node-selector">
         <el-form :model="controlForm" label-width="80px">
           <el-form-item label="节点ID">
-            <el-select 
-              v-model="controlForm.nodeId" 
-              placeholder="请选择节点" 
+            <el-select
+              v-model="controlForm.nodeId"
+              placeholder="请选择节点"
               clearable
               style="width: 100%"
             >
               <el-option
                 v-for="node in nodeList"
                 :key="node.id"
-                :value="node.user_id"
+                :value="String(node.user_id)"
               />
             </el-select>
           </el-form-item>
@@ -30,9 +30,9 @@
 
       <!-- 控制按钮 -->
       <div class="control-buttons">
-        <el-button 
-          type="success" 
-          :icon="Open" 
+        <el-button
+          type="success"
+          :icon="Open"
           @click="openCurtain"
           :loading="loading.open"
           :disabled="!controlForm.nodeId || loading.close"
@@ -41,10 +41,10 @@
         >
           打开
         </el-button>
-        
-        <el-button 
-          type="danger" 
-          :icon="Close" 
+
+        <el-button
+          type="danger"
+          :icon="Close"
           @click="closeCurtain"
           :loading="loading.close"
           :disabled="!controlForm.nodeId || loading.open"
@@ -57,7 +57,7 @@
 
       <!-- 状态显示 -->
       <div class="status-display" v-if="currentStatus">
-        <el-tag 
+        <el-tag
           :type="currentStatus === 'opened' ? 'success' : 'info'"
           size="large"
           class="status-tag"
@@ -121,11 +121,11 @@ const fetchNodeList = async () => {
     const response = await axios.get<ApiResponse>('/admin/getAllNode')
     console.log(response)
     if (response.status === 200 && Array.isArray(response.data.nodes)) {
-      nodeList.value = response.data.nodes.map((node: NodeOption) => ({ 
-        id: node.id,
+      nodeList.value = response.data.nodes.map((node: NodeOption) => ({
+        id: node.id + 1,
         user_id: node.user_id  // 添加label，如果没有则使用value
       }))
-      
+
     } else {
         console.log(nodeList.value)
       ElMessage.error(response.data.message)
@@ -149,7 +149,7 @@ const openCurtain = async () => {
     const response = await axios.get<ApiResponse>(
       `/empx/openTheDoor/${controlForm.nodeId}`
     )
-    
+
     if (response.status === 200) {
       ElMessage.success('窗帘打开成功')
       currentStatus.value = 'opened'
@@ -177,17 +177,17 @@ const closeCurtain = async () => {
     const response = await axios.get<ApiResponse>(
       `/empx/closeTheDoor/${controlForm.nodeId}`
     )
-    
+
     if (response.status === 200) {
-      ElMessage.success('窗帘关闭成功')
+      ElMessage.success('关闭成功')
       currentStatus.value = 'closed'
       lastOperationTime.value = new Date().toLocaleString()
     } else {
       ElMessage.error(`操作失败: ${response.data.message}`)
     }
   } catch (error: any) {
-    console.error('关闭窗帘失败:', error)
-    ElMessage.error(`关闭窗帘失败: ${error.message || '网络错误'}`)
+    console.error('关闭失败:', error)
+    ElMessage.error(`关闭失败: ${error.message || '网络错误'}`)
   } finally {
     loading.close = false
   }
@@ -204,11 +204,11 @@ onMounted(() => {
   width: 100%;
   max-width: 500px;
   margin: 0 auto;
-  
+
   .control-card {
     border-radius: 12px;
     border: 1px solid #ebeef5;
-    
+
     .card-header {
       display: flex;
       align-items: center;
@@ -216,35 +216,35 @@ onMounted(() => {
       font-size: 18px;
       font-weight: 600;
       color: #303133;
-      
+
       .header-icon {
         font-size: 20px;
         color: #409eff;
       }
     }
   }
-  
+
   .node-selector {
     margin-bottom: 30px;
-    
+
     :deep(.el-form-item__label) {
       font-weight: 500;
       color: #606266;
     }
   }
-  
+
   .control-buttons {
     display: flex;
     gap: 20px;
     justify-content: center;
     margin-bottom: 30px;
-    
+
     .control-btn {
       min-width: 140px;
       height: 50px;
       font-size: 16px;
       font-weight: 500;
-      
+
       &:hover {
         transform: translateY(-2px);
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -252,22 +252,22 @@ onMounted(() => {
       }
     }
   }
-  
+
   .status-display {
     text-align: center;
     padding-top: 20px;
     border-top: 1px dashed #e4e7ed;
-    
+
     .status-tag {
       padding: 10px 20px;
       font-size: 16px;
       margin-bottom: 10px;
-      
+
       .el-icon {
         margin-right: 6px;
       }
     }
-    
+
     .status-time {
       margin: 0;
       font-size: 14px;
@@ -279,10 +279,10 @@ onMounted(() => {
 @media (max-width: 768px) {
   .curtain-control-container {
     max-width: 100%;
-    
+
     .control-buttons {
       flex-direction: column;
-      
+
       .control-btn {
         width: 100%;
       }
