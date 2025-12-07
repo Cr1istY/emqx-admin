@@ -71,10 +71,10 @@ export default defineComponent({
         }
 
         const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const day = String(date.getDate()).padStart(2, '0');
-        const hour = String(date.getHours()).padStart(2, '0');
-        const minute = String(date.getMinutes()).padStart(2, '0');
+        const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+        const day = String(date.getUTCDate()).padStart(2, '0');
+        const hour = String(date.getUTCHours()).padStart(2, '0');
+        const minute = String(date.getUTCMinutes()).padStart(2, '0');
 
         return `${year}-${month}-${day} ${hour}:${minute}`;
       } catch (error) {
@@ -228,7 +228,8 @@ export default defineComponent({
     // 组件挂载时加载初始数据
     onMounted(() => {
       // 设置默认时间为最近24小时
-      const end = new Date();
+      const end_for = new Date();
+      const end = new Date(end_for.getTime() + 8 * 60 * 60 * 1000);
       const start = new Date(end.getTime() - 24 * 60 * 60 * 1000);
 
       startTime.value = formatDateTime(start.toISOString());

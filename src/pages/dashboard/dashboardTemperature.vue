@@ -65,17 +65,16 @@ export default defineComponent({
     const formatDateTime = (timestamp: string): string => {
       try {
         // 处理 ISO 8601 格式，兼容时区
-        const date = new Date(timestamp.endsWith('Z') ? timestamp : timestamp + 'Z');
+        const date = new Date(timestamp.endsWith('Z') ? timestamp : timestamp + 'Z')
         if (isNaN(date.getTime())) {
           throw new Error('Invalid date');
         }
-
         const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const day = String(date.getDate()).padStart(2, '0');
-        const hour = String(date.getHours()).padStart(2, '0');
-        const minute = String(date.getMinutes()).padStart(2, '0');
-
+        const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+        const day = String(date.getUTCDate()).padStart(2, '0');
+        const hour = String(date.getUTCHours()).padStart(2, '0');
+        const minute = String(date.getUTCMinutes()).padStart(2, '0');
+        console.log(hour)
         return `${year}-${month}-${day} ${hour}:${minute}`;
       } catch (error) {
         console.error('时间格式化错误:', timestamp, error);
@@ -228,7 +227,8 @@ export default defineComponent({
     // 组件挂载时加载初始数据
     onMounted(() => {
       // 设置默认时间为最近24小时
-      const end = new Date();
+      const end_for = new Date();
+      const end = new Date(end_for.getTime() + 8 * 60 * 60 * 1000);
       const start = new Date(end.getTime() - 24 * 60 * 60 * 1000);
 
       startTime.value = formatDateTime(start.toISOString());
